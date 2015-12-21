@@ -3,14 +3,30 @@ class GiftWrapper
     @input = input
   end
 
+  def total_ribbon_length
+    ribbon_length + bow_length
+  end
+
+  def ribbon_length
+    shortes_sides.first * 2 + shortes_sides.last * 2
+  end
+
+  def bow_length
+    input_to_array.reduce(:*)
+  end
+
   def square_foot
     base_calculation + slack
   end
 
   def slack
+    shortes_sides.reduce(:*)
+  end
+
+  def shortes_sides
     measures = input_to_array
     measures.delete_at(measures.index(measures.max))
-    measures.reduce(:*)
+    measures
   end
 
   def parsed_input

@@ -2,6 +2,37 @@ require 'spec_helper'
 require 'gift_wrapper'
 
 describe GiftWrapper do
+
+  describe "#total_ribbon_length" do
+    it "test case 1" do
+      input = "2x3x4"
+      parser = described_class.new(input)
+      expect(parser.total_ribbon_length).to eq(34)
+    end
+
+    it "test case 2" do
+      input = "1x1x10"
+      parser = described_class.new(input)
+      expect(parser.total_ribbon_length).to eq(14)
+    end
+  end
+
+  describe "#ribbon_length" do
+    it "test case 1" do
+      input = "2x3x4"
+      parser = described_class.new(input)
+      expect(parser.ribbon_length).to eq(10)
+    end
+  end
+
+  describe "#bow_length" do
+    it "test case 1" do
+      input = "2x3x4"
+      parser = described_class.new(input)
+      expect(parser.bow_length).to eq(24)
+    end
+  end
+
   describe "#square_foot" do
     it "test case 1" do
       input = "2x3x4"
