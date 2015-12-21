@@ -21,4 +21,24 @@ describe SantaHouseCounter do
       expect(parser.count_houses).to eq(2)
     end
   end
+
+  describe "#count_houses_with_robot" do
+    it "test case 1" do
+      input = "^v"
+      parser = described_class.new(input)
+      expect(parser.count_houses_with_robot).to eq(3)
+    end
+
+    it "test case 2" do
+      input = "^>v<"
+      parser = described_class.new(input)
+      expect(parser.count_houses_with_robot).to eq(3)
+    end
+
+    it "test case 3" do
+      input = "^v^v^v^v^v"
+      parser = described_class.new(input)
+      expect(parser.count_houses_with_robot).to eq(11)
+    end
+  end
 end
