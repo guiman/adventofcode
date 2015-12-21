@@ -1,4 +1,4 @@
-class WrappingPaper
+class GiftWrapper
   def initialize(input)
     @input = input
   end

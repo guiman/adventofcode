@@ -1,17 +1,19 @@
 require 'spec_helper'
-require 'wrapping_paper'
+require 'gift_wrapper'
 
-describe WrappingPaper do
-  it "test case 1" do
-    input = "2x3x4"
-    parser = described_class.new(input)
-    expect(parser.square_foot).to eq(58)
-  end
+describe GiftWrapper do
+  describe "#square_foot" do
+    it "test case 1" do
+      input = "2x3x4"
+      parser = described_class.new(input)
+      expect(parser.square_foot).to eq(58)
+    end
 
-  it "test case 2" do
-    input = "1x1x10"
-    parser = described_class.new(input)
-    expect(parser.square_foot).to eq(43)
+    it "test case 2" do
+      input = "1x1x10"
+      parser = described_class.new(input)
+      expect(parser.square_foot).to eq(43)
+    end
   end
 
   describe "#parsed_input" do
