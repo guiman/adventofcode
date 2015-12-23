@@ -1,12 +1,9 @@
 require 'digest'
-
 number = 0
-key = '%{key}%{number}'
-
+key = ARGV[0]
 loop do
-  test = key % { number: number, key: ARGV[0] }
-  data = Digest::MD5.hexdigest(test).to_s
-  break if data[0..5] == "000000"
+  break if Digest::MD5.hexdigest(key+number.to_s)[0..5] == "000000"
   number += 1
 end
+
 p "Found it: #{number}"

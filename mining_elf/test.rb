@@ -1,41 +1,29 @@
-require 'digest'
+require_relative 'lib/checker'
+require_relative 'lib/range_checker'
 
 number = 0
-block_size = 100000
-solution = -1
-key = '%{key}%{number}'
-
+block_size = 100_000
+checker = Checker.new(ARGV[0])
 arr = []
+solution = -1
+THREAD_COUNT = 4
+
 loop do
-  4.times do |i|
-    arr[i] = Thread.new {
-      start = number + (block_size * i)
-      finish = start + block_size
-      (start..finish).to_a.each do |current|
-        test = key % { number: current, key: ARGV[0] }
-        data = Digest::MD5.hexdigest(test).to_s
-        if data[0..5] == "000000"
-          Thread.current["result"] = current
-          break
-        end
-      end
-    }
-  end
-
-  potential_results = []
-
-  arr.each do |thr|
-    thr.join
-    if !thr["result"].nil?
-      potential_results << thr["result"]
+  THREAD_COUNT.times do |i|
+    arr[i] = Thread.new do
+      my_block = (block_size / THREAD_COUNT) * (i+1)
+      start = number + my_block
+      Thread.current["result"] = RangeChecker.match(start, start + my_block, checker)
     end
   end
+
+  potential_results = arr.map { |thr| thr.join; thr["result"] }.compact
 
   if potential_results.any?
     solution = potential_results.min
     break
   else
-    number += (block_size * 4)
+    number += block_size
   end
 end
 

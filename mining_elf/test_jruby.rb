@@ -13,8 +13,8 @@ block_size = 100_000
 solution = -1
 template = '%{key}%{number}'
 THREAD_COUNT = 4
-executor = ThreadPoolExecutor.new(4, # core_pool_treads
-                                  4, # max_pool_threads
+executor = ThreadPoolExecutor.new(THREAD_COUNT, # core_pool_treads
+                                  THREAD_COUNT, # max_pool_threads
                                   60, # keep_alive_time
                                   TimeUnit::SECONDS,
                                   LinkedBlockingQueue.new)
